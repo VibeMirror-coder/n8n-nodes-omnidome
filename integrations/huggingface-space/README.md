@@ -2,12 +2,12 @@
 title: OmniDome Agent Reliability
 emoji: 🛡️
 colorFrom: blue
-colorTo: teal
+colorTo: blue
 sdk: static
 app_file: index.html
 pinned: false
 license: mit
-short_description: Preflight agent actions, JSON cleanup, and payment recovery guidance
+short_description: Preflight, JSON cleanup and payment recovery for AI
 ---
 
 # OmniDome Agent Reliability — HumanMirror
