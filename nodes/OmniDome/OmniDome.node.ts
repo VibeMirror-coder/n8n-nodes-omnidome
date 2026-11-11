@@ -26,7 +26,7 @@ export class OmniDome implements INodeType {
         options:[
           {name:'Clean JSON (X402, 0.010 USDC)',value:'cleanJson',description:'Normalize JSON using the current live payment terms',action:'Normalize JSON using the current live payment terms'},
           {name:'Safe Preflight (X402, 0.010 USDC)',value:'safePreflight',description:'Advisory check before a consequential agent action',action:'Advisory check before a consequential agent action'},
-          {name:'Recover (Free Advice Only)',value:'recover',description:'Diagnose settlement/delivery uncertainty without recovering funds',action:'Diagnose settlement/delivery uncertainty without recovering funds'},
+          {name:'Recover (Free Advice Only)',value:'recover',description:'Diagnose settlement/delivery uncertainty without recovering funds',action:'Diagnose a payment recovery issue'},
         ],
       },
       {

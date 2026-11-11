@@ -1,6 +1,6 @@
 {
   "name": "@humanmirror/n8n-nodes-omnidome",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "OmniDome n8n community nodes: JSON normalization, advisory Safe Preflight and payment recovery diagnostics",
   "license": "MIT",
   "homepage": "https://humanmirror.fr/omnidome/start/",
