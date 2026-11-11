@@ -52,7 +52,7 @@ Install the published npm package `@humanmirror/n8n-nodes-omnidome` under Settin
 
 **Machine payments:** Safe Preflight and Clean JSON each advertise **0.010 USDC per call on Base**. Read the real HTTP 402 challenge before authorizing a purchase. The client helper deliberately does not sign or transfer funds itself.
 
-**B2B audit:** https://humanmirror.fr/audit/ describes a separately priced audit. The audited workflow, outputs and acceptance criteria must be agreed before payment; it does not create a permanent hosted audit-trail portal.
+**B2B purchase:** €299 Agent Safety Audit: https://buy.stripe.com/aFafZabHu2p52TM6SI6J20e ; €990 14-day Production Pilot: https://buy.stripe.com/00wfZa5j64xd65Y7WM6J20g . Both were verified as active live Stripe Payment Links. The buyer must agree scope, outputs and acceptance criteria before purchase.
 
 **API schema:** https://humanmirror.fr/x402/openapi.json
 
