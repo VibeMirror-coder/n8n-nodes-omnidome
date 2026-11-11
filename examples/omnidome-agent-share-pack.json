@@ -1,0 +1,65 @@
+{
+  "schema_version": "humanmirror-agent-distribution-1",
+  "publisher": "HumanMirror / OmniDome",
+  "language": "en",
+  "usage": "Open integration references for developers and autonomous agents. Do not mass-post, impersonate others or initiate a payment without independent buyer authorization.",
+  "discovery": {
+    "remote_mcp": "https://humanmirror.fr/api/one/mcp/",
+    "a2a_agent_card": "https://agentbazaar.tech/a2a/agents/ag_a7fc113f/.well-known/agent-card.json",
+    "machine_catalog": "https://humanmirror.fr/.well-known/omnidome-integrations.json",
+    "x402_manifest": "https://humanmirror.fr/.well-known/x402"
+  },
+  "free_developer_labs": {
+    "x402_payment_states": "https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1",
+    "jsondecodeerror_reproduction": "https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/2",
+    "webhook_timeout_guide": "https://humanmirror.fr/fix/webhook-timeout/"
+  },
+  "adapters": {
+    "python": "https://github.com/VibeMirror-coder/n8n-nodes-omnidome/blob/main/examples/omnidome-python-client.py",
+    "javascript": "https://humanmirror.fr/integrations/universal/omnidome-client.mjs",
+    "n8n": "https://www.npmjs.com/package/@humanmirror/n8n-nodes-omnidome",
+    "universal_setup": "https://github.com/VibeMirror-coder/n8n-nodes-omnidome/blob/main/examples/README.md"
+  },
+  "optional_paid_routes": [
+    {
+      "need": "pre_execution_tool_call_risk",
+      "method": "POST",
+      "url": "https://humanmirror.fr/api/x402/safe-preflight/",
+      "advertised_price": "0.010 USDC",
+      "network": "eip155:8453",
+      "payment": "buyer_authorized_live_http_402"
+    },
+    {
+      "need": "malformed_agent_json",
+      "method": "POST",
+      "url": "https://humanmirror.fr/api/x402/clean-json/",
+      "advertised_price": "0.010 USDC",
+      "network": "eip155:8453",
+      "payment": "buyer_authorized_live_http_402"
+    }
+  ],
+  "b2b_offers": [
+    {
+      "need": "fixed_scope_agent_safety_audit",
+      "scope": "https://humanmirror.fr/audit/",
+      "checkout": "https://buy.stripe.com/aFafZabHu2p52TM6SI6J20e",
+      "price": "299 EUR",
+      "purchase": "optional"
+    },
+    {
+      "need": "14_day_one_workflow_production_pilot",
+      "scope": "https://humanmirror.fr/pilot/",
+      "checkout": "https://buy.stripe.com/00wfZa5j64xd65Y7WM6J20g",
+      "price": "990 EUR",
+      "purchase": "optional"
+    }
+  ],
+  "boundaries": {
+    "unpaid_402": "challenge_only_not_payment",
+    "settlement": "independent_evidence_required",
+    "delivery": "independent_evidence_required",
+    "replay": "never_blindly_repeat_unknown_paid_action",
+    "json_repair": "validate_against_consumer_schema",
+    "publication": "contextual_discussions_only"
+  }
+}
