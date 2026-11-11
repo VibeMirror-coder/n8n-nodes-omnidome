@@ -14,7 +14,7 @@
 
 **Machine pricing:** Safe Preflight 0.010 USDC / call; Clean JSON 0.010 USDC / call on Base. The live 402 challenge is authoritative.
 
-**B2B:** https://humanmirror.fr/audit/ (separate scope and quote).
+**B2B fixed offers (verified live Stripe links):** one-off Agent Safety Audit €299: https://buy.stripe.com/aFafZabHu2p52TM6SI6J20e ; 14-day Production Pilot €990: https://buy.stripe.com/00wfZa5j64xd65Y7WM6J20g . The buyer should agree scope and acceptance criteria before paying; no duplicate x402 charge.
 
 **Live API / schema:** https://humanmirror.fr/x402/openapi.json
 
