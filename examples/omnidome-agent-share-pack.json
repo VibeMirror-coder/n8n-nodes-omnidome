@@ -7,7 +7,8 @@
     "remote_mcp": "https://humanmirror.fr/api/one/mcp/",
     "a2a_agent_card": "https://agentbazaar.tech/a2a/agents/ag_a7fc113f/.well-known/agent-card.json",
     "machine_catalog": "https://humanmirror.fr/.well-known/omnidome-integrations.json",
-    "x402_manifest": "https://humanmirror.fr/.well-known/x402"
+    "x402_manifest": "https://humanmirror.fr/.well-known/x402",
+    "multilingual_agent_catalog": "https://humanmirror.fr/.well-known/global-agent-discovery.json"
   },
   "free_developer_labs": {
     "x402_payment_states": "https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1",
@@ -61,5 +62,20 @@
     "replay": "never_blindly_repeat_unknown_paid_action",
     "json_repair": "validate_against_consumer_schema",
     "publication": "contextual_discussions_only"
-  }
+  },
+  "languages_available": [
+    "en",
+    "fr",
+    "hi",
+    "id",
+    "es",
+    "pt-BR",
+    "ar",
+    "ru",
+    "zh-CN",
+    "ja",
+    "ko",
+    "uk",
+    "tr"
+  ]
 }
