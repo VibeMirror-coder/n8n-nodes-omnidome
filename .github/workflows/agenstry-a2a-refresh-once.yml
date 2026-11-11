@@ -1,0 +1,47 @@
+name: HumanMirror public A2A revalidation (once)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/agenstry-a2a-refresh-once.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Ask Agenstry free validator to re-probe HumanMirror
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/validate-request.json <<'JSON'
+          {
+            "jsonrpc":"2.0",
+            "id":"humanmirror-free-validation-20261111",
+            "method":"SendMessage",
+            "params":{
+              "message":{
+                "messageId":"humanmirror-free-validation-request",
+                "role":"ROLE_USER",
+                "parts":[{"text":"validate: https://humanmirror.fr"}]
+              }
+            }
+          }
+          JSON
+          status="$(curl --silent --show-error --max-time 30 \
+            --output /tmp/agenstry-result.json \
+            --write-out '%{http_code}' \
+            --request POST 'https://agenstry.com/a2a' \
+            --header 'Content-Type: application/json' \
+            --header 'A2A-Version: 1.0' \
+            --data-binary @/tmp/validate-request.json)"
+          echo "AGENSTRY_VALIDATION_HTTP=$status"
+          if [ "$status" != "200" ]; then
+            echo "Free revalidation did not complete; no paid retry or charge attempted."
+            exit 1
+          fi
+          jq -e '.jsonrpc == "2.0" and .id == "humanmirror-free-validation-20261111" and (.error == null)' /tmp/agenstry-result.json >/dev/null
+          jq -c '{jsonrpc,id,result_type:(.result|type),parts:(.result.parts // .result.message.parts // [] | map({text:(.text // "")[:1200]}))}' /tmp/agenstry-result.json
+          echo 'AGENSTRY_VALIDATION_RESPONSE_RECEIVED=PASS (not a proven rating change)'
