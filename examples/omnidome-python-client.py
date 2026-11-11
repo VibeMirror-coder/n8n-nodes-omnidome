@@ -22,8 +22,12 @@ def _request(url, method="GET", data=None, timeout=15):
         headers["Content-Type"] = "application/json"
         body = json.dumps(data, separators=(",", ":")).encode("utf-8")
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
+    class NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            return None
+    opener = urllib.request.build_opener(NoRedirect)
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as response:
+        with opener.open(req, timeout=timeout) as response:
             return {"status": response.status, "headers": dict(response.headers), "body": response.read(65536).decode("utf-8", "replace")}
     except urllib.error.HTTPError as error:
         return {"status": error.code, "headers": dict(error.headers), "body": error.read(65536).decode("utf-8", "replace")}
