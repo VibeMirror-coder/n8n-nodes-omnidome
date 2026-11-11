@@ -1,0 +1,47 @@
+{
+  "name": "@humanmirror/n8n-nodes-omnidome",
+  "version": "0.1.1",
+  "description": "OmniDome n8n community nodes: JSON normalization, advisory Safe Preflight and payment recovery diagnostics",
+  "license": "MIT",
+  "homepage": "https://humanmirror.fr/omnidome/start/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VibeMirror-coder/n8n-nodes-omnidome.git"
+  },
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "n8n-nodes",
+    "omnidome",
+    "humanmirror",
+    "x402",
+    "agent-tools"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "dist/nodes/OmniDome/OmniDome.node.js",
+  "types": "dist/nodes/OmniDome/OmniDome.node.d.ts",
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "dist/nodes/OmniDome/OmniDome.node.js"
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-assets.mjs",
+    "check": "npm run build && npm pack --dry-run",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "n8n-workflow": "^1.0.0",
+    "@types/node": "^22.15.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "bugs": {
+    "url": "https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues"
+  }
+}
