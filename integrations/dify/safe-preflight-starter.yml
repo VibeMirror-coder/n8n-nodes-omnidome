@@ -1,0 +1,373 @@
+app:
+  description: Guard a consequential Dify action with HumanMirror before execution. This starter performs no external side effect by default.
+  icon: 🛡️
+  icon_background: '#E8F3FF'
+  mode: workflow
+  name: HumanMirror Safe Preflight Starter
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: VibeMirror-coder/humanmirror_guard:0.1.3@e34444bce12271b5cf0d3e6a6015e10b3fb038c922f3056d355cc4f4f60f6627
+    version: null
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      enabled: false
+      allowed_file_extensions: []
+      allowed_file_types: []
+      allowed_file_upload_methods: []
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods: []
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data: {isInIteration: false, isInLoop: false, sourceType: start, targetType: tool}
+      id: start-source-guard-target
+      source: start
+      sourceHandle: source
+      target: guard
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: tool, targetType: code}
+      id: guard-source-parse-target
+      source: guard
+      sourceHandle: source
+      target: parse
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: code, targetType: if-else}
+      id: parse-source-decision-target
+      source: parse
+      sourceHandle: source
+      target: decision
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: if-else, targetType: code}
+      id: decision-allow-allow-target
+      source: decision
+      sourceHandle: allow
+      target: allow
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: if-else, targetType: code}
+      id: decision-block-block-target
+      source: decision
+      sourceHandle: block
+      target: block
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: if-else, targetType: code}
+      id: decision-review-review-target
+      source: decision
+      sourceHandle: review
+      target: review
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: if-else, targetType: code}
+      id: decision-false-review-target
+      source: decision
+      sourceHandle: 'false'
+      target: review
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: code, targetType: end}
+      id: allow-source-end-allow-target
+      source: allow
+      sourceHandle: source
+      target: end_allow
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: code, targetType: end}
+      id: block-source-end-block-target
+      source: block
+      sourceHandle: source
+      target: end_block
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data: {isInIteration: false, isInLoop: false, sourceType: code, targetType: end}
+      id: review-source-end-review-target
+      source: review
+      sourceHandle: source
+      target: end_review
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: Describe the exact bounded action before execution. Do not include credentials or secrets.
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - {label: Agent ID, max_length: 160, options: [], required: true, type: text-input, variable: agent_id}
+        - {label: Intended action, max_length: 4000, options: [], required: true, type: paragraph, variable: action_text}
+      height: 142
+      id: start
+      position: {x: 30, y: 260}
+      positionAbsolute: {x: 30, y: 260}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: Independent HumanMirror governance check before a consequential action.
+        is_team_authorization: true
+        provider_id: VibeMirror-coder/humanmirror_guard/humanmirror_guard
+        provider_name: VibeMirror-coder/humanmirror_guard/humanmirror_guard
+        provider_type: builtin
+        selected: false
+        title: HumanMirror Safe Preflight
+        tool_configurations: {}
+        tool_description: Returns ALLOW, REVIEW, or BLOCK plus HumanMirror governance evidence.
+        tool_label: Safe Preflight
+        tool_name: safe_preflight
+        tool_node_version: '2'
+        tool_parameters:
+          agent_id: {type: mixed, value: '{{#start.agent_id#}}'}
+          action_text: {type: mixed, value: '{{#start.action_text#}}'}
+          forbidden_terms: {type: mixed, value: ''}
+          required_terms: {type: mixed, value: ''}
+        type: tool
+      height: 180
+      id: guard
+      position: {x: 340, y: 240}
+      positionAbsolute: {x: 340, y: 240}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: |
+          import json
+          def main(raw: str) -> dict:
+              decision = "REVIEW"
+              receipt_raw = ""
+              try:
+                  payload = json.loads(raw or "{}")
+                  result = payload.get("result") if isinstance(payload, dict) else None
+                  if isinstance(result, dict):
+                      candidate = str(result.get("decision") or "").upper()
+                      if candidate in {"ALLOW", "REVIEW", "BLOCK"}:
+                          decision = candidate
+                      receipt = result.get("receipt")
+                      if receipt is not None:
+                          receipt_raw = json.dumps(receipt, separators=(",", ":"), ensure_ascii=False)
+              except Exception:
+                  decision = "REVIEW"
+              return {
+                  "decision": decision,
+                  "status": "accepted" if decision == "ALLOW" else ("blocked" if decision == "BLOCK" else "review_required"),
+                  "receipt_raw": receipt_raw,
+              }
+        code_language: python3
+        desc: Parse the HumanMirror JSON message. Unknown or malformed responses fail closed to REVIEW.
+        outputs:
+          decision: {children: null, type: string}
+          status: {children: null, type: string}
+          receipt_raw: {children: null, type: string}
+        selected: false
+        title: Parse HumanMirror decision
+        type: code
+        variables:
+        - value_selector: [guard, text]
+          variable: raw
+      height: 118
+      id: parse
+      position: {x: 650, y: 260}
+      positionAbsolute: {x: 650, y: 260}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: allow
+          conditions:
+          - {comparison_operator: is, id: allow-condition, value: ALLOW, varType: string, variable_selector: [parse, decision]}
+          id: allow
+          logical_operator: and
+        - case_id: block
+          conditions:
+          - {comparison_operator: is, id: block-condition, value: BLOCK, varType: string, variable_selector: [parse, decision]}
+          id: block
+          logical_operator: and
+        - case_id: review
+          conditions:
+          - {comparison_operator: is, id: review-condition, value: REVIEW, varType: string, variable_selector: [parse, decision]}
+          id: review
+          logical_operator: and
+        desc: Only ALLOW may lead to a future consequential action. REVIEW and unknown results stop automation.
+        selected: false
+        title: ALLOW / REVIEW / BLOCK
+        type: if-else
+      height: 198
+      id: decision
+      position: {x: 960, y: 240}
+      positionAbsolute: {x: 960, y: 240}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: |
+          def main() -> dict:
+              return {"branch_status": "ALLOW — connect your consequential action after this node."}
+        code_language: python3
+        desc: Safe placeholder only. Replace or follow this node with the real action you want to guard.
+        outputs:
+          branch_status: {children: null, type: string}
+        selected: false
+        title: ALLOW placeholder
+        type: code
+        variables: []
+      height: 86
+      id: allow
+      position: {x: 1280, y: 80}
+      positionAbsolute: {x: 1280, y: 80}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: |
+          def main() -> dict:
+              return {"branch_status": "BLOCK — do not execute the consequential action."}
+        code_language: python3
+        desc: Automation stops here.
+        outputs:
+          branch_status: {children: null, type: string}
+        selected: false
+        title: BLOCK
+        type: code
+        variables: []
+      height: 86
+      id: block
+      position: {x: 1280, y: 300}
+      positionAbsolute: {x: 1280, y: 300}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: |
+          def main() -> dict:
+              return {"branch_status": "REVIEW — require human or policy review before execution."}
+        code_language: python3
+        desc: Fail-closed review path for REVIEW and unknown decisions.
+        outputs:
+          branch_status: {children: null, type: string}
+        selected: false
+        title: REVIEW
+        type: code
+        variables: []
+      height: 86
+      id: review
+      position: {x: 1280, y: 520}
+      positionAbsolute: {x: 1280, y: 520}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: Safe Preflight accepted the intended action. No external side effect is included in this starter.
+        outputs:
+        - {value_selector: [parse, decision], value_type: string, variable: decision}
+        - {value_selector: [parse, status], value_type: string, variable: status}
+        - {value_selector: [parse, receipt_raw], value_type: string, variable: receipt_raw}
+        - {value_selector: [allow, branch_status], value_type: string, variable: next_step}
+        selected: false
+        title: End — ALLOW
+        type: end
+      height: 166
+      id: end_allow
+      position: {x: 1590, y: 80}
+      positionAbsolute: {x: 1590, y: 80}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: HumanMirror blocked the intended action.
+        outputs:
+        - {value_selector: [parse, decision], value_type: string, variable: decision}
+        - {value_selector: [parse, status], value_type: string, variable: status}
+        - {value_selector: [parse, receipt_raw], value_type: string, variable: receipt_raw}
+        - {value_selector: [block, branch_status], value_type: string, variable: next_step}
+        selected: false
+        title: End — BLOCK
+        type: end
+      height: 166
+      id: end_block
+      position: {x: 1590, y: 300}
+      positionAbsolute: {x: 1590, y: 300}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: Human or policy review is required before any consequential action.
+        outputs:
+        - {value_selector: [parse, decision], value_type: string, variable: decision}
+        - {value_selector: [parse, status], value_type: string, variable: status}
+        - {value_selector: [parse, receipt_raw], value_type: string, variable: receipt_raw}
+        - {value_selector: [review, branch_status], value_type: string, variable: next_step}
+        selected: false
+        title: End — REVIEW
+        type: end
+      height: 166
+      id: end_review
+      position: {x: 1590, y: 520}
+      positionAbsolute: {x: 1590, y: 520}
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport: {x: -40, y: 20, zoom: 0.75}
