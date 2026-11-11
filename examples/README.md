@@ -2,6 +2,26 @@
 
 **These are HTTP integrations and examples, not claims of official marketplace approval.** The same stable HTTPS endpoints can be invoked from Python, Node.js, Flowise HTTP tools, LangChain tools, CrewAI tools, Make HTTP modules and Zapier Webhooks.
 
+## Cross-platform, explicit opt-in adapters
+
+You can reuse OmniDome without installing a background process or modifying
+another agent's dependencies. Both adapters perform network requests **only
+when explicitly invoked**, and neither signs nor sends payment:
+
+- **Python 3.9+, standard library only:** [omnidome-python-client.py](omnidome-python-client.py).
+  Import it from your application, then call `discover()`, `recover()`,
+  or `inspect('safe_preflight', payload)`. The inspect method reads
+  the actual HTTP 402 challenge and cannot settle a payment.
+- **Node.js 18+ / generic JavaScript agents:**
+  [universal agent client](https://humanmirror.fr/integrations/universal/README.md)
+  provides `discover`, `freeRecover`, and `inspectPaid`.
+- **n8n self-hosted:** install our existing published community node and
+  select an operation yourself; no postinstall hooks, auto-registration,
+  third-party repo edits or surprise payments are used.
+
+Live discovery manifest:
+https://humanmirror.fr/.well-known/omnidome-integrations.json
+
 ## Local test, no payment required
 
 From the root of this repository, run:
