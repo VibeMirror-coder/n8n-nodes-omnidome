@@ -16,6 +16,10 @@ Example Safe Preflight intent: `{"action":{"text":"Synthetic agent proposes to c
 
 Install in self-hosted n8n by entering `@humanmirror/n8n-nodes-omnidome` in Settings → Community Nodes. n8n Cloud availability requires separate n8n community-node verification; publication to npm alone does not grant Cloud access.
 
+## Universal machine and developer distribution pack
+
+The public [OmniDome agent share pack](examples/omnidome-agent-share-pack.json) is a single JSON document containing live MCP and AgentBazaar entrypoints, optional x402 routes with current advertised pricing, Stripe B2B offers, free reproducible labs, and Python / JavaScript / n8n adapters. Agents may use it for opt-in integration and contextual developer support; it does not install hooks, post unsolicited messages or initiate payments.
+
 ## Live developer interoperability clinics
 
 HumanMirror maintains two public, self-serve discussion threads with reproducible exercises and optional routes to the paid APIs:
