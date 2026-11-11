@@ -28,6 +28,14 @@ jobs:
             fi
             sleep 5
           done
+      - name: Verify PascalCase SendMessage without version header
+        shell: bash
+        run: |
+          set -euo pipefail
+          payload='{"jsonrpc":"2.0","id":"hm-a2a-unversioned-gate","method":"SendMessage","params":{"message":{"messageId":"hm-a2a-unversioned","role":"ROLE_USER","parts":[{"text":"ping"}]}}}'
+          curl -fsS --max-time 15 -X POST 'https://humanmirror.fr/api/a2a/' -H 'Content-Type: application/json' --data "$payload" > /tmp/a2a-no-header.json
+          jq -e '.result.message.role == "ROLE_AGENT" and .result.message.contextId != null and .result.message.parts != null' /tmp/a2a-no-header.json >/dev/null
+          echo 'A2A_UNVERSIONED_PRODUCTION_ENVELOPE=PASS'
       - name: Ask Agenstry free validator to re-probe HumanMirror
         shell: bash
         run: |
