@@ -16,6 +16,14 @@ Example Safe Preflight intent: `{"action":{"text":"Synthetic agent proposes to c
 
 Install in self-hosted n8n by entering `@humanmirror/n8n-nodes-omnidome` in Settings → Community Nodes. n8n Cloud availability requires separate n8n community-node verification; publication to npm alone does not grant Cloud access.
 
+## Live developer interoperability clinics
+
+HumanMirror maintains two public, self-serve discussion threads with reproducible exercises and optional routes to the paid APIs:
+- [x402 response-loss, payment challenge vs settlement/delivery lab](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1) — free unsigned HTTP 402 probe, synthetic EIP-3009 timeout fixture and client interoperability reports.
+- [JSONDecodeError in n8n / MCP / AI agents](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/2) — runnable local malformed-JSON examples and redacted debugging questions.
+
+Both are free to participate in. A paid API call requires separate buyer-authorized x402 payment at the live challenge price.
+
 ## Incident troubleshooting
 
 For opt-in examples of JSON parse errors, webhook timeouts, safe payment recovery, and preflight integration, see [Incident-to-fix playbook](docs/INCIDENT_PLAYBOOK.md). This is a self-serve troubleshooting reference, not a claim of verified execution in another project's production environment.
