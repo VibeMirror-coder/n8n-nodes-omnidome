@@ -1,6 +1,6 @@
 {
   "name": "@humanmirror/n8n-nodes-omnidome",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "OmniDome n8n community nodes: JSON normalization, advisory Safe Preflight and payment recovery diagnostics",
   "license": "MIT",
   "homepage": "https://humanmirror.fr/omnidome/start/",
@@ -43,5 +43,12 @@
   },
   "bugs": {
     "url": "https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues"
+  },
+  "author": {
+    "name": "HumanMirror",
+    "email": "contact.humanmirror@gmail.com"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
   }
 }

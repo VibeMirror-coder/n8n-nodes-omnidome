@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData, INodeType, INodeTypeDescription, NodeOperationError } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, INodeType, INodeTypeDescription, NodeOperationError, NodeConnectionTypes } from 'n8n-workflow';
 
 const ROOT='https://humanmirror.fr';
 const PATHS:Record<string,string>={
@@ -17,16 +17,16 @@ export class OmniDome implements INodeType {
     subtitle:'={{$parameter["operation"]}}',
     description:'JSON cleanup, advisory agent preflight and safe payment-recovery guidance',
     defaults:{name:'OmniDome'},
-    inputs:['main'],
-    outputs:['main'],
+    inputs:[NodeConnectionTypes.Main],
+    outputs:[NodeConnectionTypes.Main],
     usableAsTool:true,
     properties:[
       {
-        displayName:'Operation',name:'operation',type:'options',default:'safePreflight',
+        displayName:'Operation',name:'operation',type:'options',default:'safePreflight',noDataExpression:true,
         options:[
-          {name:'Clean JSON (x402, 0.010 USDC)',value:'cleanJson',description:'Normalize JSON using the current live payment terms'},
-          {name:'Safe Preflight (x402, 0.010 USDC)',value:'safePreflight',description:'Advisory check before a consequential agent action'},
-          {name:'Recover (free advice only)',value:'recover',description:'Diagnose settlement/delivery uncertainty without recovering funds'},
+          {name:'Clean JSON (X402, 0.010 USDC)',value:'cleanJson',description:'Normalize JSON using the current live payment terms',action:'Normalize JSON using the current live payment terms'},
+          {name:'Safe Preflight (X402, 0.010 USDC)',value:'safePreflight',description:'Advisory check before a consequential agent action',action:'Advisory check before a consequential agent action'},
+          {name:'Recover (Free Advice Only)',value:'recover',description:'Diagnose settlement/delivery uncertainty without recovering funds',action:'Diagnose settlement/delivery uncertainty without recovering funds'},
         ],
       },
       {
@@ -49,11 +49,11 @@ export class OmniDome implements INodeType {
       try{
         const op=this.getNodeParameter('operation',i) as string;
         const path=PATHS[op];
-        if(!path)throw new Error('unsupported_operation');
+        if(!path)throw new NodeOperationError(this.getNode(),'Unsupported operation',{itemIndex:i});
         const raw=this.getNodeParameter('requestJson',i) as string;
         let parsed:unknown;
-        try{parsed=JSON.parse(raw)}catch{throw new Error('Request JSON must be valid JSON');}
-        if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error('Request JSON must contain a JSON object');
+        try{parsed=JSON.parse(raw)}catch{throw new NodeOperationError(this.getNode(),'Request JSON must be valid JSON',{itemIndex:i});}
+        if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new NodeOperationError(this.getNode(),'Request JSON must contain a JSON object',{itemIndex:i});
         const headers:Record<string,string>={'Content-Type':'application/json','Accept':'application/json'};
         if(op!=='recover'){
           const signature=(this.getNodeParameter('paymentSignature',i,'') as string).trim();
@@ -76,7 +76,7 @@ export class OmniDome implements INodeType {
           results.push({json:{ok:false,payment_required:true,status:402,operation:op,endpoint:ROOT+path,challenge:challenge||null,response:payload,notice:'Obtain operator approval for the live x402 terms. No payment was made by this node.'},pairedItem:{item:i}});
           continue;
         }
-        if(status>=400)throw new Error('HumanMirror HTTP '+status+': '+JSON.stringify(payload).slice(0,500));
+        if(status>=400)throw new NodeOperationError(this.getNode(),'HumanMirror HTTP '+status+': '+JSON.stringify(payload).slice(0,500),{itemIndex:i});
         results.push({json:{ok:true,operation:op,status,response:payload,advisory_only:op==='recover'},pairedItem:{item:i}});
       }catch(error){
         if(this.continueOnFail()){
