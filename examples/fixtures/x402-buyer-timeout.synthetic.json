@@ -1,0 +1,40 @@
+{
+  "fixture_id": "synthetic-eip3009-response-lost-v1",
+  "synthetic": true,
+  "case": "signed_payment_response_timeout",
+  "request": {
+    "method": "POST",
+    "url": "https://humanmirror.fr/api/x402/safe-preflight/"
+  },
+  "buyer_evidence": {
+    "network": "eip155:8453",
+    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "amount_atomic": "10000",
+    "payer": "0x1111111111111111111111111111111111111111",
+    "payTo": "0x2222222222222222222222222222222222222222",
+    "authorizationNonce": "0xabababababababababababababababababababababababababababababababab",
+    "validAfter": "0",
+    "validBefore": "2000000000",
+    "signed": true,
+    "signature_included": false,
+    "request_id": null,
+    "transaction_hash": null,
+    "seller_receipt_id": null
+  },
+  "observation": {
+    "client_timeout_seconds": 30,
+    "response_received": false,
+    "delivery": "UNKNOWN",
+    "settlement": "UNKNOWN",
+    "nonce_consumed": "UNKNOWN",
+    "automatic_retry_allowed": false
+  },
+  "recovery_policy": {
+    "read_only_first": true,
+    "inspect_authorization_state": true,
+    "do_not_assume_delivery_from_nonce_used": true,
+    "do_not_repeat_signature_or_charge": true,
+    "settlement_proof_requires_independent_evidence": true,
+    "result_retrieval_by_nonce_available": false
+  }
+}
