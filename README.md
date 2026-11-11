@@ -1,6 +1,6 @@
 # @humanmirror/n8n-nodes-omnidome
 
-Community node for **OmniDome by HumanMirror**, operating on the existing public production routes. Version **0.1.0 is published on npm**. Version 0.1.1 is prepared for release; check the npm registry for the current published version. The proprietary HumanMirror/OmniDome services remain private.
+Community node for **OmniDome by HumanMirror**, operating on the existing public production routes. Version **0.1.2** was published with npm provenance from this public source repository. Check npm for registry processing and the currently visible release. The proprietary HumanMirror/OmniDome services remain private.
 
 ## Operations
 
@@ -15,6 +15,10 @@ Community node for **OmniDome by HumanMirror**, operating on the existing public
 Example Safe Preflight intent: `{"action":{"text":"Synthetic agent proposes to change a payment beneficiary."}}`. Recover advisory input: `{"stage":"response_lost"}`. If settlement/delivery is uncertain, **do not re-sign** or automatically retry a paid action. Clean JSON accepts a JSON object body; use the live OpenAPI definition to match any resource-specific schema.
 
 Install in self-hosted n8n by entering `@humanmirror/n8n-nodes-omnidome` in Settings → Community Nodes. n8n Cloud availability requires separate n8n community-node verification; publication to npm alone does not grant Cloud access.
+
+## Incident troubleshooting
+
+For opt-in examples of JSON parse errors, webhook timeouts, safe payment recovery, and preflight integration, see [Incident-to-fix playbook](docs/INCIDENT_PLAYBOOK.md). This is a self-serve troubleshooting reference, not a claim of verified execution in another project's production environment.
 
 ## Development
 
