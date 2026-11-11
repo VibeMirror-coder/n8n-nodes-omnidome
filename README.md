@@ -1,6 +1,6 @@
 # @humanmirror/n8n-nodes-omnidome
 
-Community node for **OmniDome by HumanMirror**, operating on the existing public production routes. Version **0.1.2** was published with npm provenance from this public source repository. Check npm for registry processing and the currently visible release. The proprietary HumanMirror/OmniDome services remain private.
+Community node for **OmniDome by HumanMirror**, operating on the existing public production routes. Version **0.1.3** is published on npm with GitHub Actions provenance and has passed the @n8n/scan-community-package security checks. Formal n8n Cloud verification is still pending. The proprietary HumanMirror/OmniDome services remain private.
 
 ## Operations
 
@@ -28,6 +28,17 @@ npm run check
 ```
 
 No runtime dependencies. Release versions are published via GitHub Actions using npm OIDC Trusted Publisher, with provenance. This MIT-licensed package contains only the client-side connector; backend, APIs and payment infrastructure are proprietary and not part of this repository. No existing HumanMirror pricing, Stripe checkout or x402 settlement integration is replaced by this package.
+
+
+## Start using OmniDome
+
+- [Try free payment-recovery guidance](https://humanmirror.fr/api/payment-rescue/) (POST with a JSON body; advisory only)
+- [Review the live Safe Preflight payment challenge](https://humanmirror.fr/api/x402/safe-preflight/) (POST, advertised 0.010 USDC on Base)
+- [Book the €299 Agent Safety Audit](https://buy.stripe.com/aFafZabHu2p52TM6SI6J20e) (live Stripe Payment Link)
+- [Purchase the €990 14-day Production Pilot](https://buy.stripe.com/00wfZa5j64xd65Y7WM6J20g) (live Stripe Payment Link)
+- [Integrate with LangChain, CrewAI, Flowise, Make or Zapier using HTTP](examples/README.md)
+
+Stripe orders are separate from x402 calls and must never cause duplicate charging for the same operation. No node automatically funds a wallet or authorizes a payment.
 
 ## Support
 
