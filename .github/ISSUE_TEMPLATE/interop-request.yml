@@ -1,0 +1,47 @@
+name: "No-cost agent interoperability pilot"
+description: "Test an AI agent timeout, idempotency or tool-call recovery scenario without paying, sharing secrets or connecting a wallet."
+title: "[Interop] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        HumanMirror / OmniDome is looking for independent developer feedback on a **no-funds synthetic** recovery demo. This does not perform or guarantee live x402 settlement. Do not paste tokens, payment signatures, private keys, customer names or unredacted logs.
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Agent framework or client
+      options:
+        - CrewAI
+        - LangGraph / LangChain
+        - n8n
+        - x402 HTTP client
+        - Other agent framework
+    validations:
+      required: true
+  - type: dropdown
+    id: failure
+    attributes:
+      label: Failure scenario to reproduce
+      options:
+        - Paid response lost after settlement
+        - Timeout and ambiguous payment status
+        - Tool action re-executed after workflow restart
+        - Concurrent requests with the same logical operation
+        - General Safe Preflight / Payment Rescue integration
+    validations:
+      required: true
+  - type: textarea
+    id: synthetic_shape
+    attributes:
+      label: Redacted or entirely synthetic request / response example
+      description: "Optional. Use dummy identifiers and amounts. Do not post real credentials or payment payloads."
+      placeholder: "Synthetic request / response structure, expected behavior and observed behavior"
+    validations:
+      required: false
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: No-funds pilot boundaries
+      options:
+        - label: "I understand the public demo uses simulated transactions; no real settlement or paid recovery is guaranteed."
+          required: true
