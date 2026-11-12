@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "publisher": "HumanMirror / OmniDome",
+  "commercial_agent": "JamenbinAucs",
+  "homepage": "https://humanmirror.fr",
+  "discovery": {
+    "mcp": "https://humanmirror.fr/api/one/mcp/",
+    "openapi": "https://humanmirror.fr/x402/openapi.json",
+    "buyer_page": "https://humanmirror.fr/agent-reliability/"
+  },
+  "usage_policy": {
+    "payment": "Buyer-authorized only. A 402 quote is not a paid transaction; current live server quote is authoritative.",
+    "claims": "No claim of certification, verified settlement, fulfilled service or exactly-once remote effects before independent evidence.",
+    "no_self_dealing": true
+  },
+  "offers": [
+    {
+      "id": "safe-preflight",
+      "audience": [
+        "AI agent",
+        "MCP client",
+        "automated workflow"
+      ],
+      "method": "POST",
+      "url": "https://humanmirror.fr/api/x402/safe-preflight/",
+      "payment": "x402",
+      "network": "eip155:8453",
+      "asset": "USDC",
+      "indicative_price": "0.010 USDC / call",
+      "quote_authoritative": true,
+      "when_useful": "A buyer-authorized pre-execution assessment before an agent performs a consequential tool action.",
+      "notes": "A policy check is not payment authorization or settlement evidence."
+    },
+    {
+      "id": "clean-json",
+      "audience": [
+        "AI agent",
+        "LLM app",
+        "MCP client"
+      ],
+      "method": "POST",
+      "url": "https://humanmirror.fr/api/x402/clean-json/",
+      "payment": "x402",
+      "network": "eip155:8453",
+      "asset": "USDC",
+      "indicative_price": "0.010 USDC / call",
+      "quote_authoritative": true,
+      "when_useful": "An agent needs structured JSON cleanup for downstream processing."
+    },
+    {
+      "id": "site-trust",
+      "audience": [
+        "web agency",
+        "SME site owner"
+      ],
+      "payment": "Stripe",
+      "one_time_eur": 29,
+      "checkout": "https://buy.stripe.com/3cIbIU8vifbRamea4U6J207",
+      "when_useful": "Limited review of public website trust signals; not a security or legal certification."
+    },
+    {
+      "id": "single-workflow-audit",
+      "audience": [
+        "n8n integrator",
+        "agent agency",
+        "B2B team"
+      ],
+      "payment": "Stripe",
+      "one_time_eur": 299,
+      "checkout": "https://buy.stripe.com/aFafZabHu2p52TM6SI6J20e",
+      "when_useful": "Independent, scoped synthetic failure-path audit of one existing workflow."
+    },
+    {
+      "id": "one-workflow-14-day-pilot",
+      "audience": [
+        "operations team",
+        "integration agency"
+      ],
+      "payment": "Stripe",
+      "one_time_eur": 990,
+      "checkout": "https://buy.stripe.com/00wfZa5j64xd65Y7WM6J20g",
+      "when_useful": "Defined fourteen-day pilot for one agreed workflow, subject to authorized scope."
+    }
+  ],
+  "machine_buyer_example": {
+    "step_1": "Discover MCP tools or inspect the published OpenAPI.",
+    "step_2": "Select only the useful capability and call without payment to inspect current HTTP 402 terms.",
+    "step_3": "Validate amount, network, recipient, budget and caller authorization before any signature.",
+    "step_4": "Only if authorized, sign via the buyer's own supported x402 client; reconcile ambiguous outcomes before another spend.",
+    "step_5": "Verify service output and separate payment proof from deliverable evidence."
+  },
+  "contact": "contact.humanmirror@gmail.com",
+  "last_updated": "2026-11-12"
+}
