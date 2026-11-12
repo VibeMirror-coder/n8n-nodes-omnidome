@@ -20,6 +20,8 @@ curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome
 
 **Production routes you can use today:** `Safe Preflight` — `POST https://humanmirror.fr/api/x402/safe-preflight/` (x402 0.010 USDC on Base; inspect 402, pay only with buyer authorization); `Payment Rescue` — `POST https://humanmirror.fr/api/payment-rescue/` with `{"stage":"response_lost"}` (free advice, **not** proof of settlement or paid-result delivery). The OmniDome n8n community node exposes Safe Preflight, Clean JSON and advisory Recover; the Ghost-Clearing examples are **separate synthetic tests**, not a deployed node operation.
 
+Strict synthetic interoperability shape: [Ghost-Clearing HTTP lab JSON Schema and example](examples/ghost-clearing-http-lab-contract.schema.json). This documents the fixture; the current script takes no external request body.
+
 **Integrating into a real agent?** Read [framework integration examples](examples/README.md), then [share a redacted timeout trace or request a no-cost interoperability pilot](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1). No automatic payments, promotional claims of customer adoption, or surprise wallet operations.
 
 ## Operations
