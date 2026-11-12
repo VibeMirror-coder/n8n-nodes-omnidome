@@ -24,6 +24,18 @@ Strict synthetic interoperability shape: [Ghost-Clearing HTTP lab JSON Schema an
 
 **Integrating into a real agent?** Read [framework integration examples](examples/README.md), then [share a redacted timeout trace or request a no-cost interoperability pilot](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1). No automatic payments, promotional claims of customer adoption, or surprise wallet operations.
 
+## Durable retries for CrewAI and LangGraph — Python, zero funds
+
+A separate [standard-library Python SQLite guard](examples/durable-agent-tool-retry-guard.py) demonstrates a stable logical operation ID, persisted response replay across restarts, rejection of changed arguments and a fail-closed `UNKNOWN` state after an ambiguous timeout.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome/main/examples/durable-agent-tool-retry-guard.py | python3 -
+```
+
+No live payments or agent framework installation. This example **does not** guarantee exactly-once payment against providers that do not support reconciliation or idempotency. It protects the caller from blindly retrying when the outcome is unknown.
+
+**Want help integrating a paid API workflow?** [Open a free compatibility request with a redacted timeout trace](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1) or [review HumanMirror's fixed-scope commercial offers](https://humanmirror.fr/agent-reliability/). Ghost-Clearing remains an isolated prototype; Safe Preflight and Payment Rescue are existing production offerings.
+
 ## Operations
 
 | Node action | Production endpoint | Payment |
