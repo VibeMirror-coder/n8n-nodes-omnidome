@@ -30,6 +30,16 @@ curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome
 
 Read the [source before executing](examples/ghost-clearing-no-funds.mjs); the script makes no network requests. It is a local interoperability demo rather than the production Ghost-Clearing API. The separate private-branch PostgreSQL and chaos CI evidence is [here](https://github.com/VibeMirror-coder/humanmirror/actions/runs/43210827286). [Report results or ask questions in the public lab](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1).
 
+## HTTP end-to-end recovery lab — no wallet needed
+
+Run an actual loopback HTTP server and client using Node.js 22+, inject a network disconnect **after storing** a synthetic verdict, then recover the exact bytes using an Ed25519 buyer key. The test independently simulates a 0.050 USDC provider transfer and a 0.010 USDC service fee, signs a final receipt only after the buyer acknowledges delivery and rejects another buyer and duplicate payment. **No network blockchain transfers, no charge, no secrets, no API calls to HumanMirror**.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome/main/examples/ghost-clearing-http-demo.mjs | node --input-type=module
+```
+
+Review [the HTTP lab source](examples/ghost-clearing-http-demo.mjs) before running. For an external client, [post redacted results in the public interoperability thread](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1). For a genuine paid workflow, use the existing published OmniDome x402 endpoints; **Ghost-Clearing remains an isolated staging prototype and is not an active payment recovery guarantee**.
+
 ## Live developer interoperability clinics
 
 HumanMirror maintains two public, self-serve discussion threads with reproducible exercises and optional routes to the paid APIs:
