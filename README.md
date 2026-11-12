@@ -16,6 +16,14 @@ Example Safe Preflight intent: `{"action":{"text":"Synthetic agent proposes to c
 
 Install in self-hosted n8n by entering `@humanmirror/n8n-nodes-omnidome` in Settings → Community Nodes. n8n Cloud availability requires separate n8n community-node verification; publication to npm alone does not grant Cloud access.
 
+## Integrate a safe payment path into an agent workflow
+
+1. **Before any consequential tool call:** use `Safe Preflight` in the published OmniDome n8n node or inspect its x402 HTTP 402 challenge first. A successful paid call gives an **advisory risk/confirmation signal only**; the operator must still approve the actual downstream action.
+2. **If an API response disappears:** select the node's `Recover` operation, which calls the **free Payment Rescue advisory** with `{"stage":"response_lost"}`. Do **not** blindly repeat a signed payment or interpret the advisory as a recovered business result.
+3. **To reproduce the failure safely:** execute the [Ghost-Clearing HTTP no-funds lab](examples/ghost-clearing-http-demo.mjs). It tests an Ed25519 buyer, interrupted response, recovered original verdict, signed delivery acknowledgement and rejection of duplicate synthetic settlement. It is a **standalone developer simulation**, not an additional n8n node operation or an active production clearing endpoint.
+
+Machine-readable integration capabilities: https://humanmirror.fr/.well-known/omnidome-integrations.json · Scoped usage examples: [examples/README.md](examples/README.md) · [Live HTTP 402 challenge](https://humanmirror.fr/api/x402/safe-preflight/) (not a payment) · [Free Payment Rescue](https://humanmirror.fr/api/payment-rescue/) (POST).
+
 ## Universal machine and developer distribution pack
 
 The public [OmniDome agent share pack](examples/omnidome-agent-share-pack.json) is a single JSON document containing live MCP and AgentBazaar entrypoints, optional x402 routes with current advertised pricing, Stripe B2B offers, free reproducible labs, and Python / JavaScript / n8n adapters. Agents may use it for opt-in integration and contextual developer support; it does not install hooks, post unsolicited messages or initiate payments.
