@@ -36,6 +36,12 @@ No live payments or agent framework installation. This example **does not** guar
 
 **Want help integrating a paid API workflow?** [Open a free compatibility request with a redacted timeout trace](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1) or [review HumanMirror's fixed-scope commercial offers](https://humanmirror.fr/agent-reliability/). Ghost-Clearing remains an isolated prototype; Safe Preflight and Payment Rescue are existing production offerings.
 
+## Independently reproduced buyer-side timeout scenario (synthetic only)
+
+Fizzl ran a synthetic case through the **Fizzl Agent Wallet's own retry logic** in a mock harness (mocked seller and chain lookup): **one authorization, two attempts, no second charge, final state `settled_no_answer`**. This is **not** a live HumanMirror payment, integration, partnership or endorsement. The public independent test is [Fizzl's connector-pay test](https://github.com/Fizzl13/x402-examples/blob/main/wallet-server/test/connector-pay.test.mjs), specifically the case *“an API that doesn't answer the paid request gets the same payment once more, never a second charge”*.
+
+For an independent developer, this is a precise acceptance criterion to compare against our local [Ghost-Clearing HTTP demonstration](examples/ghost-clearing-http-demo.mjs), not evidence that production recovery is available.
+
 ## Operations
 
 | Node action | Production endpoint | Payment |
