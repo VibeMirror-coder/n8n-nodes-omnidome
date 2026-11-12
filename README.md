@@ -22,7 +22,7 @@ curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome
 
 Strict synthetic interoperability shape: [Ghost-Clearing HTTP lab JSON Schema and example](examples/ghost-clearing-http-lab-contract.schema.json). This documents the fixture; the current script takes no external request body.
 
-**Integrating into a real agent?** Read [framework integration examples](examples/README.md), then [share a redacted timeout trace or request a no-cost interoperability pilot](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1). No automatic payments, promotional claims of customer adoption, or surprise wallet operations.
+**Integrating into a real agent?** Read [framework integration examples](examples/README.md), then [request a no-cost interoperability pilot](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/new?template=interop-request.yml) in three fields, without a wallet or customer data. You can also [join the public technical discussion](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1). No automatic payments, promotional claims of customer adoption, or surprise wallet operations.
 
 ## Durable retries for CrewAI and LangGraph — Python, zero funds
 
