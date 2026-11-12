@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HumanMirror Ghost-Clearing no-funds interoperability fixture v1",
+  "description": "Machine-readable description of a synthetic, local-only agent recovery fixture. This file documents a proposed interoperability shape; the current HTTP demo is self-contained and does not accept external request bodies.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "buyer_intent",
+    "simulated_payments",
+    "fault",
+    "expected"
+  ],
+  "properties": {
+    "buyer_intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intent_id",
+        "action",
+        "network"
+      ],
+      "properties": {
+        "intent_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 128
+        },
+        "action": {
+          "type": "string",
+          "const": "synthetic_safe_preflight"
+        },
+        "network": {
+          "type": "string",
+          "const": "eip155:84532"
+        }
+      }
+    },
+    "simulated_payments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_amount_atomic",
+        "clearing_fee_atomic",
+        "currency",
+        "real_chain_transfers"
+      ],
+      "properties": {
+        "provider_amount_atomic": {
+          "type": "string",
+          "const": "50000"
+        },
+        "clearing_fee_atomic": {
+          "type": "string",
+          "const": "10000"
+        },
+        "currency": {
+          "type": "string",
+          "const": "USDC"
+        },
+        "real_chain_transfers": {
+          "type": "integer",
+          "const": 0
+        }
+      }
+    },
+    "fault": {
+      "type": "string",
+      "const": "disconnect_after_result_persisted"
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "buyer_recovery",
+        "verdict_digest_unchanged",
+        "buyer_signed_ack",
+        "no_duplicate_execution"
+      ],
+      "properties": {
+        "buyer_recovery": {
+          "type": "boolean",
+          "const": true
+        },
+        "verdict_digest_unchanged": {
+          "type": "boolean",
+          "const": true
+        },
+        "buyer_signed_ack": {
+          "type": "boolean",
+          "const": true
+        },
+        "no_duplicate_execution": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "buyer_intent": {
+        "intent_id": "synthetic-demo-001",
+        "action": "synthetic_safe_preflight",
+        "network": "eip155:84532"
+      },
+      "simulated_payments": {
+        "provider_amount_atomic": "50000",
+        "clearing_fee_atomic": "10000",
+        "currency": "USDC",
+        "real_chain_transfers": 0
+      },
+      "fault": "disconnect_after_result_persisted",
+      "expected": {
+        "buyer_recovery": true,
+        "verdict_digest_unchanged": true,
+        "buyer_signed_ack": true,
+        "no_duplicate_execution": true
+      }
+    }
+  ],
+  "x-humanmirror-interface": {
+    "live_api": false,
+    "execution": "node --input-type=module with fixture downloaded from public GitHub",
+    "requires_wallet": false,
+    "charges_usdc": "0",
+    "request_body_accepted": false,
+    "proof": "synthetic HTTP test only; no on-chain settlements"
+  }
+}
