@@ -20,6 +20,16 @@ Install in self-hosted n8n by entering `@humanmirror/n8n-nodes-omnidome` in Sett
 
 The public [OmniDome agent share pack](examples/omnidome-agent-share-pack.json) is a single JSON document containing live MCP and AgentBazaar entrypoints, optional x402 routes with current advertised pricing, Stripe B2B offers, free reproducible labs, and Python / JavaScript / n8n adapters. Agents may use it for opt-in integration and contextual developer support; it does not install hooks, post unsolicited messages or initiate payments.
 
+## Ghost-Clearing: free, executable recovery self-test
+
+The first public Ghost-Clearing exercise simulates a lost API response after a **synthetic** settlement, then verifies buyer-key-bound Ed25519 recovery, nonce replay protection and no second simulated debit. Requires Node.js 22+; **no wallet, funds, API key or live transaction**:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome/main/examples/ghost-clearing-no-funds.mjs | node --input-type=module
+```
+
+Read the [source before executing](examples/ghost-clearing-no-funds.mjs); the script makes no network requests. It is a local interoperability demo rather than the production Ghost-Clearing API. The separate private-branch PostgreSQL and chaos CI evidence is [here](https://github.com/VibeMirror-coder/humanmirror/actions/runs/43210827286). [Report results or ask questions in the public lab](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1).
+
 ## Live developer interoperability clinics
 
 HumanMirror maintains two public, self-serve discussion threads with reproducible exercises and optional routes to the paid APIs:
