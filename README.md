@@ -2,6 +2,26 @@
 
 Community node for **OmniDome by HumanMirror**, operating on the existing public production routes. Version **0.1.3** is published on npm with GitHub Actions provenance and has passed the @n8n/scan-community-package security checks. Formal n8n Cloud verification is still pending. The proprietary HumanMirror/OmniDome services remain private.
 
+## Start here — two free Ghost-Clearing tests, no wallet required
+
+For developers building **CrewAI, LangGraph, n8n or x402 agents**: test what happens when a buyer's paid API response disappears. Both examples run locally with Node.js 22+ and simulate transactions. **Zero real funds, zero production access, no customer data.**
+
+**1. Ed25519 recovery and duplicate-payment protection (local state machine)**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome/main/examples/ghost-clearing-no-funds.mjs | node --input-type=module
+```
+
+**2. Real localhost HTTP cut-after-commit, recovery and signed delivery acknowledgement**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/VibeMirror-coder/n8n-nodes-omnidome/main/examples/ghost-clearing-http-demo.mjs | node --input-type=module
+```
+
+**Production routes you can use today:** `Safe Preflight` — `POST https://humanmirror.fr/api/x402/safe-preflight/` (x402 0.010 USDC on Base; inspect 402, pay only with buyer authorization); `Payment Rescue` — `POST https://humanmirror.fr/api/payment-rescue/` with `{"stage":"response_lost"}` (free advice, **not** proof of settlement or paid-result delivery). The OmniDome n8n community node exposes Safe Preflight, Clean JSON and advisory Recover; the Ghost-Clearing examples are **separate synthetic tests**, not a deployed node operation.
+
+**Integrating into a real agent?** Read [framework integration examples](examples/README.md), then [share a redacted timeout trace or request a no-cost interoperability pilot](https://github.com/VibeMirror-coder/n8n-nodes-omnidome/issues/1). No automatic payments, promotional claims of customer adoption, or surprise wallet operations.
+
 ## Operations
 
 | Node action | Production endpoint | Payment |
